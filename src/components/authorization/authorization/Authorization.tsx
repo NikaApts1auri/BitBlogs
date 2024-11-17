@@ -36,21 +36,21 @@ export function Authorization() {
   };
 
   return (
-    <div className="flex w-[100vw] items-center justify-center h-screen bg-[#030303] p-4">
-      <div className="bg-[#0c1016] text-white rounded-[1.5rem] border-[0.02rem] border-white  w-[35rem] p-8 shadow-lg">
-        <h1 className="text-2xl font-bold text-center mb-4">Log in to BitBlogs</h1>
-        <p className="text-gray-400 text-center mb-8">
+    <div className="flex w-[100vw] items-center justify-center h-screen bg-[#030303] p-8">
+      <div className="bg-[#0c1016] text-white rounded-[2rem] border-[0.02rem] border-white w-[40rem] p-12 shadow-lg">
+        <h1 className="text-3xl font-bold text-center mb-6">Log in to BitBlogs</h1>
+        <p className="text-gray-400 text-center mb-10">
           Enter your credentials to access your account
         </p>
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
           <div>
-            <label htmlFor="email" className="block text-sm font-medium">
+            <label htmlFor="email" className="block text-lg font-medium">
               Email
             </label>
             <input
               type="text"
               id="email"
-              className="block w-full px-4 py-2 mt-1 border border-gray-700 rounded-lg bg-[#1A1C1F] placeholder-gray-500 focus:ring-blue-500 focus:border-blue-500"
+              className="block w-full px-6 py-3 mt-2 border border-gray-700 rounded-lg bg-[#1A1C1F] placeholder-gray-500 focus:ring-blue-500 focus:border-blue-500"
               {...register("email")}
               placeholder="john@example.com"
             />
@@ -59,13 +59,13 @@ export function Authorization() {
             )}
           </div>
           <div>
-            <label htmlFor="password" className="block text-sm font-medium">
+            <label htmlFor="password" className="block text-lg font-medium">
               Password
             </label>
             <input
               type="password"
               id="password"
-              className="block w-full px-4 py-2 mt-1 border border-gray-700 rounded-lg bg-[#1A1C1F] placeholder-gray-500 focus:ring-blue-500 focus:border-blue-500"
+              className="block w-full px-6 py-3 mt-2 border border-gray-700 rounded-lg bg-[#1A1C1F] placeholder-gray-500 focus:ring-blue-500 focus:border-blue-500"
               {...register("password")}
               placeholder="••••••••"
             />
@@ -75,30 +75,29 @@ export function Authorization() {
           </div>
           <button
             type="submit"
-            className="w-full py-2 bg-blue-600 hover:bg-blue-700 rounded-lg text-sm font-medium focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50"
+            className="w-full py-3 bg-blue-600 hover:bg-blue-700 rounded-lg text-lg font-medium focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50"
           >
             Log In
           </button>
         </form>
-        <div className="flex items-center justify-between">
-        <div className="mt-6 text-center">
-          <a
-            href="#"
-            className="text-sm text-blue-500 hover:underline focus:outline-none"
-          >
-            Forgot password?
-          </a>
-        </div>
-        <div className="mt-4 text-center text-[grey] text-sm">
-          Don't have an account?{" "}
-          <a
-            href="#"
-            className="text-blue-500 hover:underline focus:outline-none"
-          >
-            Sign up
-          </a>
-        </div>
-       
+        <div className="flex items-center justify-between mt-8">
+          <div className="mt-4 text-center">
+            <a
+              href="#"
+              className="text-sm text-blue-500 hover:underline focus:outline-none"
+            >
+              Forgot password?
+            </a>
+          </div>
+          <div className="mt-4 text-center text-[grey] text-lg">
+            Don't have an account?{" "}
+            <a
+              href="#"
+              className="text-blue-500 hover:underline focus:outline-none"
+            >
+              Sign up
+            </a>
+          </div>
         </div>
       </div>
     </div>
