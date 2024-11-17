@@ -1,7 +1,7 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 interface IFormType {
   email: string;
@@ -28,6 +28,11 @@ export function Authorization() {
   } = useForm<IFormType>({
     resolver: yupResolver(schema),
   });
+
+
+  const convertToSignUp=()=>{
+   navigate("/registration")
+  }
 
   const onSubmit: SubmitHandler<IFormType> = async (data) => {
     console.log(data);
@@ -82,21 +87,21 @@ export function Authorization() {
         </form>
         <div className="flex items-center justify-between mt-8">
           <div className="mt-4 text-center">
-            <a
-              href="#"
+            <Link
+            to={""}
               className="text-sm text-blue-500 hover:underline focus:outline-none"
             >
               Forgot password?
-            </a>
+            </Link>
           </div>
           <div className="mt-4 text-center text-[grey] text-lg">
             Don't have an account?{" "}
-            <a
-              href="#"
+            <button
+              onClick={convertToSignUp}
               className="text-blue-500 hover:underline focus:outline-none"
             >
               Sign up
-            </a>
+            </button>
           </div>
         </div>
       </div>
