@@ -1,7 +1,7 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 interface IFormType {
   name: string;
@@ -43,6 +43,10 @@ export function Registration() {
     console.log(data);
     navigate("/home");
   };
+
+  function convertToSignIn(): void {
+    throw new Error("Function not implemented.");
+  }
 
   return (
     <div className="flex w-[100vw] items-center justify-center h-screen bg-[#030303] p-6">
@@ -120,14 +124,15 @@ export function Registration() {
           </button>
         </form>
         <div className="flex items-center justify-center mt-8">
-          <div className="text-center text-[grey]  text-sm ">
+          <div  className="text-center text-[grey]  text-sm ">
             Already have an account?{" "}
-            <a
-              href="#"
+            <Link
+            onClick={convertToSignIn}
+              to="#"
               className="text-blue-500 hover:underline focus:outline-none"
             >
               Log in
-            </a>
+            </Link>
           </div>
         </div>
       </div>
