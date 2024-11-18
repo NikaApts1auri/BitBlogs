@@ -127,8 +127,8 @@ export function Registration() {
           <div  className="text-center text-[grey]  text-sm ">
             Already have an account?{" "}
             <Link
-            onClick={convertToSignIn}
-              to="#"
+            
+              to="/authorization"
               className="text-blue-500 hover:underline focus:outline-none"
             >
               Log in

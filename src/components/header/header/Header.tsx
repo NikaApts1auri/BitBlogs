@@ -51,9 +51,9 @@ export default function Header() {
       </span>
 
       <div className="flex gap-[1rem]">
-        <button className="text-[1.3rem] hover:text-white font-medium">Home</button>
-        <button className="text-[1.3rem] hover:text-white font-medium">Write</button>
-        <button className="text-[1.3rem] hover:text-white font-medium">About</button>
+        <button className="text-[1.3rem] text-gray-500 hover:text-white font-medium">Home</button>
+        <button className="text-[1.3rem] text-gray-500 hover:text-white font-medium">Write</button>
+        <button className="text-[1.3rem] text-gray-500 hover:text-white font-medium">About</button>
       </div>
 
       <div className="flex gap-[2rem] items-center">
