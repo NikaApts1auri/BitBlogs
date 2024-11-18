@@ -1,4 +1,6 @@
 export default function Main() {
+
+  
   return (
     <div className="flex ">
        <div className="p-[8rem] gap-[2rem] flex flex-col">
@@ -58,7 +60,7 @@ export default function Main() {
 
 
 
-      <div className="rounded-xl border bg-card w-[65rem]  w-[90rem] text-card-foreground shadow">
+      <div className="rounded-xl border bg-card  w-[90rem] text-card-foreground shadow">
         <div className="flex flex-col space-y-1.5 p-6">
        
           <div className="mb-4">
@@ -183,22 +185,22 @@ export default function Main() {
     <div className="p-6 pt-0">
       <div className="flex flex-wrap gap-2">
         <a href="/search">
-          <div className="inline-flex text-[#f2efef] bg-[blue] items-center rounded-md border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-primary text-primary-foreground shadow hover:bg-primary/80">Blockchain</div>
+          <div className="inline-flex text-[#f4ebeb] bg-[#3636f3] items-center rounded-md border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-primary text-primary-foreground shadow hover:bg-primary/80">Blockchain</div>
         </a>
         <a href="/search">
-          <div className="inline-flex items-center text-[#f2efef] bg-[blue]   rounded-md border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-primary text-primary-foreground shadow hover:bg-primary/80">Cryptocurrency</div>
+          <div className="inline-flex items-center text-[#f4ebeb] bg-[#3636f3]  rounded-md border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-primary text-primary-foreground shadow hover:bg-primary/80">Cryptocurrency</div>
         </a>
         <a href="/search">
-          <div className="inline-flex items-center text-[#f2efef] bg-[blue]   rounded-md border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-primary text-primary-foreground shadow hover:bg-primary/80">Technology</div>
+          <div className="inline-flex items-center text-[#f4ebeb] bg-[#3636f3]   rounded-md border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-primary text-primary-foreground shadow hover:bg-primary/80">Technology</div>
         </a>
         <a href="/search">
-          <div className="inline-flex  items-center text-[#f2efef] bg-[blue]   rounded-md border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-primary text-primary-foreground shadow hover:bg-primary/80">Programming</div>
+          <div className="inline-flex  items-center text-[#f4ebeb] bg-[#3636f3]  rounded-md border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-primary text-primary-foreground shadow hover:bg-primary/80">Programming</div>
         </a>
         <a href="/search">
-          <div className="inline-flex items-center text-[#f2efef] bg-[blue]   rounded-md border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-primary text-primary-foreground shadow hover:bg-primary/80">AI</div>
+          <div className="inline-flex items-center text-[#f4ebeb] bg-[#3636f3]   rounded-md border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-primary text-primary-foreground shadow hover:bg-primary/80">AI</div>
         </a>
         <a href="/search">
-          <div className="inline-flex items-center text-[#f2efef] bg-[blue]   rounded-md border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-primary text-primary-foreground shadow hover:bg-primary/80">Machine Learning</div>
+          <div className="inline-flex items-center text-[#f4ebeb] bg-[#3636f3]   rounded-md border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-primary text-primary-foreground shadow hover:bg-primary/80">Machine Learning</div>
         </a>
       </div>
     </div>

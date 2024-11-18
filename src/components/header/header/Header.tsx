@@ -1,6 +1,12 @@
 import { useNavigate } from "react-router-dom"
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator } from "../../ui/dropdown-menu"
+import i18n from "i18next";
 
+
+
+const handleChangeLanguage=()=>{
+  i18n.changeLanguage("en")
+}
 export default function Header() {
   const navigate = useNavigate()
 
@@ -13,7 +19,7 @@ export default function Header() {
   }
 
   return (
-    <div className="w-[100vw] bg-[#242323] border-b-[0.02rem] border-[#b9b6b6] px-[8rem] py-[1rem] flex items-center justify-between">
+    <div className="w-[100vw] bg-[#0a0a0b] border-b-[0.02rem] border-[#b9b6b6] px-[8rem] py-[1rem] flex items-center justify-between">
       <span onClick={convertToHome}>
         <p className="font-extrabold text-[2rem] cursor-pointer text-[white] ">BitBlogs</p>
       </span>
