@@ -6,8 +6,16 @@ import MainView from "./components/main/view";
 import AuthorizationView from "./components/authorization/view";
 import RegistrationView from "./components/registration/view";
 import { ThemeProvider } from "./components/themeProvider";
+import { useTranslation } from "react-i18next";
+import AboutView from "./components/about/view";
 
 function App() {
+
+  const lngs = {
+    en: { nativeName: 'English' },
+    de: { nativeName: 'Deutsch' }
+  };
+  const { t } = useTranslation();
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
     <BrowserRouter>
@@ -29,6 +37,18 @@ function App() {
         </Suspense>
       }
     />
+
+
+
+<Route
+      path="about"
+      element={
+        <Suspense fallback={<LoadingFallback />}>
+          <AboutView />
+        </Suspense>
+      }
+    />
+
 
 <Route
       path="registration"

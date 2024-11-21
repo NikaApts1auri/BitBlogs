@@ -36,6 +36,10 @@ export default function Header() {
     navigate("authorization");
   };
 
+  const convertToAbout= () => {
+    navigate("about");
+  };
+
   const convertToHome = () => {
     navigate("/");
   };
@@ -51,9 +55,9 @@ export default function Header() {
       </span>
 
       <div className="flex gap-[1rem]">
-        <button className="text-[1.3rem] text-gray-500 hover:text-white font-medium">Home</button>
+        <button onClick={convertToHome} className="text-[1.3rem] text-gray-500 hover:text-white font-medium">Home</button>
         <button className="text-[1.3rem] text-gray-500 hover:text-white font-medium">Write</button>
-        <button className="text-[1.3rem] text-gray-500 hover:text-white font-medium">About</button>
+        <button onClick={convertToAbout} className="text-[1.3rem] text-gray-500 hover:text-white font-medium">About</button>
       </div>
 
       <div className="flex gap-[2rem] items-center">
