@@ -2,10 +2,9 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 
-// მონაცემთა ტიპი
+
 interface IFormType {
   name: string;
   email: string;
@@ -68,9 +67,9 @@ export function Registration() {
   };
 
   return (
-    <div className="flex w-full items-center justify-center h-screen bg-[#030303] p-6">
-      <div className="bg-[#0c1016] text-white rounded-[1.5rem] border border-white w-[40rem] p-12 shadow-lg">
-        <h1 className="text-3xl font-bold text-center mb-6">Sign Up to BitBlogs</h1>
+    <div className="flex w-full items-center justify-center h-screen dark:bg-[#030303] p-6">
+      <div className="dark:bg-[#0c1016] text-white rounded-[1.5rem] border dark:border-white w-[40rem] p-12 shadow-lg">
+        <h1 className="text-3xl text-[black] dark:text-[white] font-bold text-center mb-6">Sign Up to BitBlogs</h1>
         <p className="text-gray-400 text-center mb-8">
           Create an account to access your profile
         </p>

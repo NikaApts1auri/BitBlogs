@@ -54,9 +54,9 @@ export function Authorization() {
   };
 
   return (
-    <div className="flex w-[100vw] items-center justify-center h-screen bg-[#030303] p-8">
-      <div className="bg-[#0c1016] text-white rounded-[2rem] border-[0.02rem] border-white w-[40rem] p-12 shadow-lg">
-        <h1 className="text-3xl font-bold text-center mb-6">Log in to BitBlogs</h1>
+    <div className="flex w-[100vw] items-center justify-center h-screen dark:bg-[#030303] p-8">
+      <div className="dark:bg-[#0c1016] text-white rounded-[2rem] border-[0.02rem] border-white w-[40rem] p-12 shadow-lg">
+        <h1 className="text-3xl text-[black] dark:text-[white] font-bold text-center mb-6">Log in to BitBlogs</h1>
         <p className="text-gray-400 text-center mb-10">
           Enter your credentials to access your account
         </p>
