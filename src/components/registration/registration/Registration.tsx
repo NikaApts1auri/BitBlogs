@@ -13,7 +13,7 @@ interface IFormType {
   confirmPassword: string;
 }
 
-// მონაცემთა ვალიდაციის სქემა
+
 const schema = yup
   .object({
     name: yup.string().required("Name is a required field"),

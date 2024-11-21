@@ -31,12 +31,12 @@ export function Authorization() {
     resolver: yupResolver(schema),
   });
 
-  // Mutation hook for registration/login
+  
   const { mutate: handleRegister } = useMutation({
     mutationKey: ["register"],
     mutationFn:registerrr ,
     onSuccess: () => {
-      navigate("/"); // Redirect on successful login
+      navigate("/"); 
     },
     onError: (err) => {
       console.error("Login failed:", err);
@@ -47,10 +47,10 @@ export function Authorization() {
     navigate("/registration");
   };
 
-  // Submit handler for the form
+  
   const onSubmit: SubmitHandler<IFormType> = async (data) => {
     console.log(data);
-    handleRegister(data); // Trigger the register mutation
+    handleRegister(data);
   };
 
   return (

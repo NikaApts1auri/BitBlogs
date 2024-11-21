@@ -1,0 +1,20 @@
+{
+    "version": 2,
+    "builds": [
+      {
+        "src": "src/index.js",
+        "use": "@vercel/static-build"
+      }
+    ],
+    "routes": [
+      {
+        "src": "/(.*)",
+        "dest": "/index.html"
+      }
+    ],
+    "env": {
+      "VITE_SUPABASE_URL": "https://mcsysflgmwwzwpxulqlk.supabase.co",
+      "VITE_SUPABASE_ANON_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1jc3lzZmxnbXd3endweHVscWxrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzIxNzMxMjMsImV4cCI6MjA0Nzc0OTEyM30.IgMdJVKmTbiATaytRmD4BzVpEbY9T_TQIgyBVnIMf9A"
+    }
+  }
+  
