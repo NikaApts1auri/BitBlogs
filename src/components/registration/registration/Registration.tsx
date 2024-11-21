@@ -2,7 +2,10 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useMutation } from "@tanstack/react-query";
 
+// მონაცემთა ტიპი
 interface IFormType {
   name: string;
   email: string;
@@ -10,6 +13,7 @@ interface IFormType {
   confirmPassword: string;
 }
 
+// მონაცემთა ვალიდაციის სქემა
 const schema = yup
   .object({
     name: yup.string().required("Name is a required field"),
@@ -24,12 +28,32 @@ const schema = yup
     confirmPassword: yup
       .string()
       .required("Confirm password is a required field")
-      .oneOf([yup.ref('password')], "Passwords must match"),
+      .oneOf([yup.ref("password")], "Passwords must match"),
   })
   .required();
 
 export function Registration() {
   const navigate = useNavigate();
+
+  const { mutate: handleRegister, isError, error } = useMutation({
+    mutationFn: async (payload: { email: string; password: string }) => {
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          if (payload.email === "test@example.com") {
+            reject(new Error("User already exists"));
+          } else {
+            resolve("User registered successfully");
+          }
+        }, 1000);
+      });
+    },
+    onSuccess: () => {
+      navigate("/");
+    },
+    onError: (err) => {
+      console.error("Registration failed:", err);
+    },
+  });
 
   const {
     register,
@@ -40,17 +64,12 @@ export function Registration() {
   });
 
   const onSubmit: SubmitHandler<IFormType> = async (data) => {
-    console.log(data);
-    navigate("/home");
+    handleRegister({ email: data.email, password: data.password });
   };
 
-  function convertToSignIn(): void {
-    throw new Error("Function not implemented.");
-  }
-
   return (
-    <div className="flex w-[100vw] items-center justify-center h-screen bg-[#030303] p-6">
-      <div className="bg-[#0c1016] text-white rounded-[1.5rem] border-[0.02rem] border-white w-[40rem] p-12 shadow-lg">
+    <div className="flex w-full items-center justify-center h-screen bg-[#030303] p-6">
+      <div className="bg-[#0c1016] text-white rounded-[1.5rem] border border-white w-[40rem] p-12 shadow-lg">
         <h1 className="text-3xl font-bold text-center mb-6">Sign Up to BitBlogs</h1>
         <p className="text-gray-400 text-center mb-8">
           Create an account to access your profile
@@ -95,7 +114,7 @@ export function Registration() {
               id="password"
               className="block w-full px-6 py-3 mt-2 border border-gray-700 rounded-lg bg-[#1A1C1F] placeholder-gray-500 focus:ring-blue-500 focus:border-blue-500"
               {...register("password")}
-              
+              placeholder="Enter your password"
             />
             {errors.password && (
               <p className="mt-1 text-sm text-red-500">{errors.password.message}</p>
@@ -110,10 +129,12 @@ export function Registration() {
               id="confirmPassword"
               className="block w-full px-6 py-3 mt-2 border border-gray-700 rounded-lg bg-[#1A1C1F] placeholder-gray-500 focus:ring-blue-500 focus:border-blue-500"
               {...register("confirmPassword")}
-              
+              placeholder="Confirm your password"
             />
             {errors.confirmPassword && (
-              <p className="mt-1 text-sm text-red-500">{errors.confirmPassword.message}</p>
+              <p className="mt-1 text-sm text-red-500">
+                {errors.confirmPassword.message}
+              </p>
             )}
           </div>
           <button
@@ -123,11 +144,15 @@ export function Registration() {
             Sign Up
           </button>
         </form>
+        {isError && (
+          <p className="mt-4 text-red-500 text-center">
+            {(error as Error).message}
+          </p>
+        )}
         <div className="flex items-center justify-center mt-8">
-          <div  className="text-center text-[grey]  text-sm ">
+          <div className="text-center text-[grey] text-sm">
             Already have an account?{" "}
             <Link
-            
               to="/authorization"
               className="text-blue-500 hover:underline focus:outline-none"
             >

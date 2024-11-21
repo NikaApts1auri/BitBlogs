@@ -2,6 +2,8 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
+import { registerrr } from "../../supabase/auth";
+import { useMutation } from "@tanstack/react-query";
 
 interface IFormType {
   email: string;
@@ -29,15 +31,26 @@ export function Authorization() {
     resolver: yupResolver(schema),
   });
 
+  // Mutation hook for registration/login
+  const { mutate: handleRegister } = useMutation({
+    mutationKey: ["register"],
+    mutationFn:registerrr ,
+    onSuccess: () => {
+      navigate("/"); // Redirect on successful login
+    },
+    onError: (err) => {
+      console.error("Login failed:", err);
+    },
+  });
 
-  const convertToSignUp=()=>{
-   navigate("/registration")
-  }
+  const convertToSignUp = () => {
+    navigate("/registration");
+  };
 
+  // Submit handler for the form
   const onSubmit: SubmitHandler<IFormType> = async (data) => {
     console.log(data);
-   
-    navigate("/home");
+    handleRegister(data); // Trigger the register mutation
   };
 
   return (
@@ -88,7 +101,7 @@ export function Authorization() {
         <div className="flex items-center justify-between mt-8">
           <div className="mt-4 text-center">
             <Link
-            to={""}
+              to={""}
               className="text-sm text-blue-500 hover:underline focus:outline-none"
             >
               Forgot password?
