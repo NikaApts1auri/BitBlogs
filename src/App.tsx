@@ -8,6 +8,7 @@ import RegistrationView from "./components/registration/view";
 import { ThemeProvider } from "./components/themeProvider";
 import { useTranslation } from "react-i18next";
 import AboutView from "./components/about/view";
+import AuthorView from "./components/author/view";
 
 function App() {
 
@@ -34,6 +35,15 @@ function App() {
       element={
         <Suspense fallback={<LoadingFallback />}>
           <AuthorizationView />
+        </Suspense>
+      }
+    />
+
+<Route
+      path="author"
+      element={
+        <Suspense fallback={<LoadingFallback />}>
+          <AuthorView />
         </Suspense>
       }
     />
