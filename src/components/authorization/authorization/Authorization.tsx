@@ -1,7 +1,13 @@
-import { useForm, SubmitHandler } from "react-hook-form";
+import {
+  useForm,
+  SubmitHandler,
+} from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { Link, useNavigate } from "react-router-dom";
+import {
+  Link,
+  useNavigate,
+} from "react-router-dom";
 import { registerrr } from "../../supabase/auth";
 import { useMutation } from "@tanstack/react-query";
 
@@ -16,7 +22,9 @@ const schema = yup
       .string()
       .email("Invalid email format")
       .required("Email is a required field"),
-    password: yup.string().required("Password is a required field"),
+    password: yup
+      .string()
+      .required("Password is a required field"),
   })
   .required();
 
@@ -31,12 +39,11 @@ export function Authorization() {
     resolver: yupResolver(schema),
   });
 
-  
-  const { mutate: handleRegister } = useMutation({
+  const { mutate: handleLogin } = useMutation({
     mutationKey: ["register"],
-    mutationFn:registerrr ,
+    mutationFn: registerrr,
     onSuccess: () => {
-      navigate("/"); 
+      navigate("/");
     },
     onError: (err) => {
       console.error("Login failed:", err);
@@ -47,22 +54,32 @@ export function Authorization() {
     navigate("/registration");
   };
 
-  
-  const onSubmit: SubmitHandler<IFormType> = async (data) => {
+  const onSubmit: SubmitHandler<
+    IFormType
+  > = async (data) => {
     console.log(data);
-    handleRegister(data);
+    handleLogin(data);
   };
 
   return (
     <div className="flex w-[100vw] items-center justify-center h-screen dark:bg-[#030303] p-8">
       <div className="dark:bg-[#0c1016] text-white rounded-[2rem] border-[0.02rem] border-white w-[40rem] p-12 shadow-lg">
-        <h1 className="text-3xl text-[black] dark:text-[white] font-bold text-center mb-6">Log in to BitBlogs</h1>
+        <h1 className="text-3xl text-[black] dark:text-[white] font-bold text-center mb-6">
+          Log in to BitBlogs
+        </h1>
         <p className="text-gray-400 text-center mb-10">
-          Enter your credentials to access your account
+          Enter your credentials to access your
+          account
         </p>
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="space-y-8"
+        >
           <div>
-            <label htmlFor="email" className="block text-lg font-medium">
+            <label
+              htmlFor="email"
+              className="block text-lg font-medium"
+            >
               Email
             </label>
             <input
@@ -73,11 +90,16 @@ export function Authorization() {
               placeholder="john@example.com"
             />
             {errors.email && (
-              <p className="mt-1 text-sm text-red-500">{errors.email.message}</p>
+              <p className="mt-1 text-sm text-red-500">
+                {errors.email.message}
+              </p>
             )}
           </div>
           <div>
-            <label htmlFor="password" className="block text-lg font-medium">
+            <label
+              htmlFor="password"
+              className="block text-lg font-medium"
+            >
               Password
             </label>
             <input
@@ -88,7 +110,9 @@ export function Authorization() {
               placeholder="••••••••"
             />
             {errors.password && (
-              <p className="mt-1 text-sm text-red-500">{errors.password.message}</p>
+              <p className="mt-1 text-sm text-red-500">
+                {errors.password.message}
+              </p>
             )}
           </div>
           <button
