@@ -1,8 +1,11 @@
 import {
   PropsWithChildren,
+  useEffect,
   useState,
 } from "react";
 import { createContext } from "react";
+import { supabase } from "../../components/supabase";
+import { Session } from "@supabase/supabase-js";
 
 type AuthContexType = any;
 
@@ -13,11 +16,29 @@ export const AuthProvider: React.FC<
 > = ({ children }) => {
   const [user, setUser] = useState<any>();
 
-  const handleSetUser = (session: {
-    user: any;
-  }) => {
+  const handleSetUser = (
+    session: Session | null
+  ) => {
     setUser(session?.user || null);
   };
+
+  useEffect(() => {
+    supabase.auth
+      .getSession()
+      .then(({ data: { session } }) => {
+        handleSetUser(session);
+      });
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange(
+      (_event, session) => {
+        handleSetUser(session);
+      }
+    );
+
+    return () => subscription.unsubscribe();
+  }, []);
+
   return (
     <AuthContext.Provider
       value={{ user, handleSetUser }}

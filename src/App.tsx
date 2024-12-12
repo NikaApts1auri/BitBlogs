@@ -13,35 +13,36 @@ import { ThemeProvider } from "./components/themeProvider";
 import AboutView from "./components/about/view";
 import AuthorView from "./components/author/view";
 import { supabase } from "./components/supabase";
-import { AuthProvider } from "./context/auth"; // Import AuthProvider here
+import { AuthProvider } from "./context/auth";
+import { useAuthContext } from "./components/hooks/useAuthContext";
 
 function App() {
+  const { handleSetUser } = useAuthContext();
+
   useEffect(() => {
-    const fetchSession = async () => {
-      const { data, error } =
-        await supabase.auth.getSession();
-      if (error) {
-        console.error(
-          "Error fetching session:",
-          error
-        );
-        return;
+    supabase.auth
+      .getSession()
+      .then(({ data: { session } }) => {
+        handleSetUser(session);
+        console.log(session);
+      });
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange(
+      (_event, session) => {
+        handleSetUser(session);
       }
+    );
 
-      const session = data?.session;
-      console.log(
-        "Session from getSession:",
-        session
-      );
+    return () => {
+      subscription.unsubscribe();
     };
-
-    fetchSession();
   }, []);
 
   return (
     <AuthProvider>
       {" "}
-      {/* Ensure this wraps your entire app */}
       <ThemeProvider
         defaultTheme="dark"
         storageKey="vite-ui-theme"

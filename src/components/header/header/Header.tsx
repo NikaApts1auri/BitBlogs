@@ -16,7 +16,7 @@ import { supabase } from "../../supabase";
 // };
 const handleSignOut = async () => {
   await supabase.auth.signOut();
-  setSession(null);
+  setSession(undefined);
 };
 export default function Header() {
   const { user } = useAuthContext();
@@ -135,7 +135,11 @@ export default function Header() {
               onClick={convertToSignIn}
               className="bg-blue-500 h-[3rem] rounded-[0.5rem] w-[7rem] text-[1.3rem] text-[white]"
             >
-              Sign In
+              {user ? (
+                <span>LogOut</span>
+              ) : (
+                <span>Sign In</span>
+              )}
             </button>
           )}
         </div>
