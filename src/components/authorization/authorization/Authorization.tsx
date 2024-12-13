@@ -8,8 +8,9 @@ import {
   Link,
   useNavigate,
 } from "react-router-dom";
-import { registerrr } from "../../supabase/auth";
+
 import { useMutation } from "@tanstack/react-query";
+import { login } from "../../supabase/auth";
 
 interface IFormType {
   email: string;
@@ -40,13 +41,14 @@ export function Authorization() {
   });
 
   const { mutate: handleLogin } = useMutation({
-    mutationKey: ["register"],
-    mutationFn: registerrr,
+    mutationKey: ["login"],
+    mutationFn: login,
     onSuccess: () => {
       navigate("/");
     },
-    onError: (err) => {
-      console.error("Login failed:", err);
+    onError: (err: any) => {
+      console.error("Login failed:", err.message);
+      alert(err.message);
     },
   });
 
@@ -54,11 +56,11 @@ export function Authorization() {
     navigate("/registration");
   };
 
-  const onSubmit: SubmitHandler<
-    IFormType
-  > = async (data) => {
-    console.log(data);
-    handleLogin(data);
+  const onSubmit: SubmitHandler<any> = (data) => {
+    handleLogin({
+      email: data.email,
+      password: data.password,
+    });
   };
 
   return (

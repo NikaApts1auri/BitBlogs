@@ -16,7 +16,7 @@ import { supabase } from "../../supabase";
 // };
 const handleSignOut = async () => {
   await supabase.auth.signOut();
-  setSession(undefined);
+  setSession(null);
 };
 export default function Header() {
   const { user } = useAuthContext();

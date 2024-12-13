@@ -20,25 +20,37 @@ function App() {
   const { handleSetUser } = useAuthContext();
 
   useEffect(() => {
-    supabase.auth
-      .getSession()
-      .then(({ data: { session } }) => {
+    const fetchSession = async () => {
+      const {
+        data: { session },
+        error,
+      } = await supabase.auth.getSession();
+      console.log("session is", session);
+      if (error) {
+        console.error(
+          "Error getting session:",
+          error
+        );
+      } else {
         handleSetUser(session);
-        console.log(session);
-      });
+      }
+    };
+
+    fetchSession();
 
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange(
       (_event, session) => {
         handleSetUser(session);
+        console.log(session);
       }
     );
 
     return () => {
       subscription.unsubscribe();
     };
-  }, []);
+  }, [handleSetUser]);
 
   return (
     <AuthProvider>
