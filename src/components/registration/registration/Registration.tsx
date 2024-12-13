@@ -1,9 +1,14 @@
-import { useForm, SubmitHandler } from "react-hook-form";
+import {
+  useForm,
+  SubmitHandler,
+} from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { Link, useNavigate } from "react-router-dom";
+import {
+  Link,
+  useNavigate,
+} from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
-
 
 interface IFormType {
   name: string;
@@ -12,10 +17,11 @@ interface IFormType {
   confirmPassword: string;
 }
 
-
 const schema = yup
   .object({
-    name: yup.string().required("Name is a required field"),
+    name: yup
+      .string()
+      .required("Name is a required field"),
     email: yup
       .string()
       .email("Invalid email format")
@@ -23,25 +29,46 @@ const schema = yup
     password: yup
       .string()
       .required("Password is a required field")
-      .min(6, "Password must be at least 6 characters long"),
+      .min(
+        6,
+        "Password must be at least 6 characters long"
+      ),
     confirmPassword: yup
       .string()
-      .required("Confirm password is a required field")
-      .oneOf([yup.ref("password")], "Passwords must match"),
+      .required(
+        "Confirm password is a required field"
+      )
+      .oneOf(
+        [yup.ref("password")],
+        "Passwords must match"
+      ),
   })
   .required();
 
 export function Registration() {
   const navigate = useNavigate();
 
-  const { mutate: handleRegister, isError, error } = useMutation({
-    mutationFn: async (payload: { email: string; password: string }) => {
+  const {
+    mutate: handleRegister,
+    isError,
+    error,
+  } = useMutation({
+    mutationFn: async (payload: {
+      email: string;
+      password: string;
+    }) => {
       return new Promise((resolve, reject) => {
         setTimeout(() => {
-          if (payload.email === "test@example.com") {
-            reject(new Error("User already exists"));
+          if (
+            payload.email === "test@example.com"
+          ) {
+            reject(
+              new Error("User already exists")
+            );
           } else {
-            resolve("User registered successfully");
+            resolve(
+              "User registered successfully"
+            );
           }
         }, 1000);
       });
@@ -62,20 +89,33 @@ export function Registration() {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit: SubmitHandler<IFormType> = async (data) => {
-    handleRegister({ email: data.email, password: data.password });
+  const onSubmit: SubmitHandler<
+    IFormType
+  > = async (data) => {
+    handleRegister({
+      email: data.email,
+      password: data.password,
+    });
   };
 
   return (
     <div className="flex w-full items-center justify-center h-screen dark:bg-[#030303] p-6">
       <div className="dark:bg-[#0c1016] text-white rounded-[1.5rem] border dark:border-white w-[40rem] p-12 shadow-lg">
-        <h1 className="text-3xl text-[black] dark:text-[white] font-bold text-center mb-6">Sign Up to BitBlogs</h1>
+        <h1 className="text-3xl text-[black] dark:text-[white] font-bold text-center mb-6">
+          Sign Up to BitBlogs
+        </h1>
         <p className="text-gray-400 text-center mb-8">
           Create an account to access your profile
         </p>
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="space-y-8"
+        >
           <div>
-            <label htmlFor="name" className="block text-lg font-medium">
+            <label
+              htmlFor="name"
+              className="block text-lg font-medium"
+            >
               Name
             </label>
             <input
@@ -86,11 +126,16 @@ export function Registration() {
               placeholder="John Doe"
             />
             {errors.name && (
-              <p className="mt-1 text-sm text-red-500">{errors.name.message}</p>
+              <p className="mt-1 text-sm text-red-500">
+                {errors.name.message}
+              </p>
             )}
           </div>
           <div>
-            <label htmlFor="email" className="block text-lg font-medium">
+            <label
+              htmlFor="email"
+              className="block text-lg font-medium"
+            >
               Email
             </label>
             <input
@@ -101,11 +146,16 @@ export function Registration() {
               placeholder="john@example.com"
             />
             {errors.email && (
-              <p className="mt-1 text-sm text-red-500">{errors.email.message}</p>
+              <p className="mt-1 text-sm text-red-500">
+                {errors.email.message}
+              </p>
             )}
           </div>
           <div>
-            <label htmlFor="password" className="block text-lg font-medium">
+            <label
+              htmlFor="password"
+              className="block text-lg font-medium"
+            >
               Password
             </label>
             <input
@@ -116,11 +166,16 @@ export function Registration() {
               placeholder="Enter your password"
             />
             {errors.password && (
-              <p className="mt-1 text-sm text-red-500">{errors.password.message}</p>
+              <p className="mt-1 text-sm text-red-500">
+                {errors.password.message}
+              </p>
             )}
           </div>
           <div>
-            <label htmlFor="confirmPassword" className="block text-lg font-medium">
+            <label
+              htmlFor="confirmPassword"
+              className="block text-lg font-medium"
+            >
               Confirm Password
             </label>
             <input
@@ -152,7 +207,7 @@ export function Registration() {
           <div className="text-center text-[grey] text-sm">
             Already have an account?{" "}
             <Link
-              to="/authorization"
+              to="authorization"
               className="text-blue-500 hover:underline focus:outline-none"
             >
               Log in

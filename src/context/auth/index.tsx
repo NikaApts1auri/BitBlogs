@@ -4,7 +4,7 @@ import {
   useState,
 } from "react";
 import { createContext } from "react";
-import { supabase } from "../../components/supabase";
+import { supabase } from "../../supabase/supaClient";
 import { Session } from "@supabase/supabase-js";
 
 type AuthContexType = any;

@@ -1,5 +1,8 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import {
+  Link,
+  useNavigate,
+} from "react-router-dom";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -8,24 +11,20 @@ import {
 } from "../../ui/dropdown-menu";
 
 import { useAuthContext } from "../../hooks/useAuthContext";
-import { supabase } from "../../supabase";
+import { handleSignOut } from "../../../supabase/signOut";
 // import i18n from "i18next";
 
 // const handleChangeLanguage = () => {
 //   i18n.changeLanguage("en");
 // };
-const handleSignOut = async () => {
-  await supabase.auth.signOut();
-  setSession(null);
-};
-export default function Header() {
-  const { user } = useAuthContext();
 
-  console.log("From custom hook", user);
+export default function Header() {
+  const navigate = useNavigate();
+
+  const { user } = useAuthContext();
 
   const [theme, setTheme] =
     useState<string>("dark");
-  const navigate = useNavigate();
 
   useEffect(() => {
     const savedTheme =
@@ -124,12 +123,13 @@ export default function Header() {
         </div>
         <div>
           {user ? (
-            <span
+            <Link
+              to={"authorization"}
               onClick={handleSignOut}
               className="cursor-pointer text-blue-500 hover:text-blue-700"
             >
               Logout
-            </span>
+            </Link>
           ) : (
             <button
               onClick={convertToSignIn}

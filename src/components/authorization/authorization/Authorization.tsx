@@ -10,7 +10,7 @@ import {
 } from "react-router-dom";
 
 import { useMutation } from "@tanstack/react-query";
-import { login } from "../../supabase/auth";
+import { login } from "../../../supabase/auth";
 
 interface IFormType {
   email: string;
