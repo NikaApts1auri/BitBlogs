@@ -1,15 +1,11 @@
 import { useState, useEffect } from "react";
 import { createAvatar } from "@dicebear/core";
-import { croodles } from "@dicebear/collection";
-interface ProfileFieldProps {
-  label: string;
-  value: string;
-  className?: string; // Add className here
-}
+import { miniavs } from "@dicebear/collection";
+import profileSchema from "../validationSchema";
 
 export default function Profile() {
   const defaultAvatar = createAvatar(
-    croodles,
+    miniavs,
     {}
   ).toDataUri();
 
@@ -26,6 +22,7 @@ export default function Profile() {
     useState(profileData);
   const [isEditing, setIsEditing] =
     useState(false);
+  const [errors, setErrors] = useState<any>({});
 
   useEffect(() => {
     const storedProfile = localStorage.getItem(
@@ -69,18 +66,43 @@ export default function Profile() {
   const handleAvatarReset = () => {
     setProfileData((prevData) => ({
       ...prevData,
-      avatarUrl: defaultAvatar, // Reset to default avatar
+      avatarUrl: defaultAvatar,
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const validateProfileData = async () => {
+    try {
+      await profileSchema.validate(profileData, {
+        abortEarly: false,
+      });
+      setErrors({}); // Clear errors if validation passes
+      return true;
+    } catch (err: any) {
+      const newErrors = err.inner.reduce(
+        (acc: any, error: any) => {
+          acc[error.path] = error.message;
+          return acc;
+        },
+        {}
+      );
+      setErrors(newErrors);
+      return false;
+    }
+  };
+
+  const handleSubmit = async (
+    e: React.FormEvent
+  ) => {
     e.preventDefault();
-    localStorage.setItem(
-      "profileData",
-      JSON.stringify(profileData)
-    );
-    setSavedProfile(profileData);
-    setIsEditing(false);
+    const isValid = await validateProfileData();
+    if (isValid) {
+      localStorage.setItem(
+        "profileData",
+        JSON.stringify(profileData)
+      );
+      setSavedProfile(profileData);
+      setIsEditing(false);
+    }
   };
 
   const handleEdit = () => {
@@ -95,7 +117,7 @@ export default function Profile() {
         </h1>
         {!isEditing ? (
           <div>
-            <div className="text-center   mt-6">
+            <div className="text-center mt-6">
               <img
                 src={
                   savedProfile.avatarUrl ||
@@ -105,38 +127,33 @@ export default function Profile() {
                 className="w-36 h-36 rounded-full mx-auto shadow-lg border-4 border-gray-100 mb-6"
               />
             </div>
-            <div className="space-y-6 text-[1.4rem] px-[7rem] ">
+            <div className="space-y-6 px-[42%] text-[1.4rem] ">
               <ProfileField
-                label="სახელი ქართულად"
+                label="სახელი"
                 value={savedProfile.firstNameGe}
-                className="border border-gray-300 p-4 rounded-lg shadow-md bg-gray-50"
               />
               <ProfileField
-                label="სახელი ინგლისურად"
+                label="Name"
                 value={savedProfile.firstNameEn}
-                className="border border-gray-300 p-4 rounded-lg shadow-md bg-gray-50"
               />
               <ProfileField
-                label="გვარი ქართულად"
+                label="გვარი"
                 value={savedProfile.lastNameGe}
-                className="border border-gray-300 p-4 rounded-lg shadow-md bg-gray-50"
               />
               <ProfileField
-                label="გვარი ინგლისურად"
+                label="Last name"
                 value={savedProfile.lastNameEn}
-                className="border border-gray-300 p-4 rounded-lg shadow-md bg-gray-50"
               />
               <ProfileField
-                label="ტელეფონი"
+                label="Phone"
                 value={savedProfile.phoneNumber}
-                className="border border-gray-300 p-4 rounded-lg shadow-md bg-gray-50"
               />
             </div>
 
             <div className="mt-6 text-center">
               <button
                 onClick={handleEdit}
-                className="py-2 px-6 text-white bg-gradient-to-r from-green-400 to-green-600 rounded-full hover:bg-gradient-to-r hover:from-green-600 hover:to-green-800 transition duration-300"
+                className="py-2 px-6 w-[10rem] h-[3rem] text-white bg-gradient-to-r from-green-400 to-green-600 rounded-full hover:bg-gradient-to-r hover:from-green-600 hover:to-green-800 transition duration-300"
               >
                 Edit
               </button>
@@ -145,7 +162,7 @@ export default function Profile() {
         ) : (
           <form
             onSubmit={handleSubmit}
-            className="space-y-6 text-[black]"
+            className="space-y-6  text-[black]"
           >
             <div className="space-y-6">
               <InputField
@@ -154,6 +171,7 @@ export default function Profile() {
                 name="firstNameGe"
                 value={profileData.firstNameGe}
                 onChange={handleChange}
+                error={errors.firstNameGe}
               />
               <InputField
                 label="სახელი ინგლისურად"
@@ -161,6 +179,7 @@ export default function Profile() {
                 name="firstNameEn"
                 value={profileData.firstNameEn}
                 onChange={handleChange}
+                error={errors.firstNameEn}
               />
               <InputField
                 label="გვარი ქართულად"
@@ -168,6 +187,7 @@ export default function Profile() {
                 name="lastNameGe"
                 value={profileData.lastNameGe}
                 onChange={handleChange}
+                error={errors.lastNameGe}
               />
               <InputField
                 label="გვარი ინგლისურად"
@@ -175,13 +195,14 @@ export default function Profile() {
                 name="lastNameEn"
                 value={profileData.lastNameEn}
                 onChange={handleChange}
+                error={errors.lastNameEn}
               />
               <div>
                 <label
                   htmlFor="avatarUrl"
                   className="block text-gray-700 font-medium mb-2"
                 >
-                  ავატარის ატვირთვა
+                  სურათის ატვირთვა
                 </label>
                 <input
                   type="file"
@@ -198,6 +219,7 @@ export default function Profile() {
                 name="phoneNumber"
                 value={profileData.phoneNumber}
                 onChange={handleChange}
+                error={errors.phoneNumber}
               />
               <button
                 type="submit"
@@ -226,6 +248,7 @@ function InputField({
   name,
   value,
   onChange,
+  error,
 }: {
   label: string;
   id: string;
@@ -234,12 +257,13 @@ function InputField({
   onChange: (
     e: React.ChangeEvent<HTMLInputElement>
   ) => void;
+  error?: string;
 }) {
   return (
     <div>
       <label
         htmlFor={id}
-        className="block text-gray-700 font-medium mb-1"
+        className="block text-gray-700 font-medium mb-2"
       >
         {label}
       </label>
@@ -249,8 +273,17 @@ function InputField({
         name={name}
         value={value}
         onChange={onChange}
-        className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring focus:ring-blue-300 focus:outline-none"
+        className={`w-full px-4 py-3 rounded-lg border ${
+          error
+            ? "border-red-500"
+            : "border-gray-300"
+        } focus:ring-2 focus:ring-blue-500 focus:outline-none`}
       />
+      {error && (
+        <p className="text-red-500 text-sm mt-2">
+          {error}
+        </p>
+      )}
     </div>
   );
 }
@@ -258,18 +291,16 @@ function InputField({
 function ProfileField({
   label,
   value,
-  className,
-}: ProfileFieldProps) {
+}: {
+  label: string;
+  value: string;
+}) {
   return (
-    <div
-      className={`flex justify-between ${className}`}
-    >
-      <span className="font-medium text-gray-600">
-        {label}:
-      </span>
-      <span className="text-gray-800">
-        {value}
-      </span>
+    <div>
+      <p className="font-medium text-gray-700">
+        {label}
+      </p>
+      <p className="text-gray-500">{value}</p>
     </div>
   );
 }

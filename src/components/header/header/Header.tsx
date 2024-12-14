@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import { createAvatar } from "@dicebear/core";
+import { miniavs } from "@dicebear/collection";
 import {
   Link,
   useNavigate,
@@ -12,6 +14,7 @@ import {
 
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { handleSignOut } from "../../../supabase/signOut";
+
 // import i18n from "i18next";
 
 // const handleChangeLanguage = () => {
@@ -61,9 +64,12 @@ export default function Header() {
     setTheme(newTheme);
   };
 
+  const handleProfileClick = () => {
+    navigate("/profile");
+  };
   return (
     <div
-      className={`w-[100vw] border-b-[0.02rem] border-[#b9b6b6] px-[8rem] py-[1rem] flex items-center justify-between ${
+      className={`w-[auto] border-b-[0.02rem] sticky z-index-[1000] top-0 light:py-[0px] system:py-[0px] border-[#b9b6b6] px-[8rem] py-[1rem] flex items-center justify-between ${
         theme === "dark"
           ? "bg-[#0a0a0a] text-white"
           : "bg-[#dedee3] text-[#686666]"
@@ -122,7 +128,7 @@ export default function Header() {
             <Link
               to={"authorization"}
               onClick={handleSignOut}
-              className="cursor-pointer text-blue-500 hover:text-blue-700"
+              className="cursor-pointer text-[1.5rem] text-red-500 hover:text-[gray]"
             >
               Logout
             </Link>
@@ -218,7 +224,22 @@ export default function Header() {
                   <path d="m6.34 17.66-1.41 1.41"></path>
                   <path d="m19.07 4.93-1.41 1.41"></path>
                 </svg>
-              ) : (
+              ) : theme === "dark" ? (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="30"
+                  height="30"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="lucide lucide-moon absolute h-[3rem] w-[3rem] mt-[-3.5px] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100"
+                >
+                  <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+                </svg>
+              ) : theme === "system" ? (
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -229,11 +250,23 @@ export default function Header() {
                   strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  className="as lucide lucide-moon absolute h-[2.5rem]  w-[2.5rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100"
+                  className="lucide lucide-sun h-[2.5rem] w-[2.5rem] mt-[2rem] cursor-pointer rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0"
                 >
-                  <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+                  <circle
+                    cx="12"
+                    cy="12"
+                    r="4"
+                  ></circle>
+                  <path d="M12 2v2"></path>
+                  <path d="M12 20v2"></path>
+                  <path d="m4.93 4.93 1.41 1.41"></path>
+                  <path d="m17.66 17.66 1.41 1.41"></path>
+                  <path d="M2 12h2"></path>
+                  <path d="M20 12h2"></path>
+                  <path d="m6.34 17.66-1.41 1.41"></path>
+                  <path d="m19.07 4.93-1.41 1.41"></path>
                 </svg>
-              )}
+              ) : null}
             </div>
           </DropdownMenuTrigger>
           <DropdownMenuContent>
@@ -256,10 +289,18 @@ export default function Header() {
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
+        <div className="relativec ml-[1.5rem] p-0  cursor-pointer">
+          <img
+            src="https://api.dicebear.com/9.x/miniavs/svg"
+            alt="avatar"
+            className="dark:bg-white cursor-pointer rounded-full w-16 h-16 object-cover"
+            onClick={handleProfileClick}
+          />
+          <span className="absolute bottom-0 left-0 right-0 text-center text-white text-lg opacity-0 transition-opacity duration-300 hover:opacity-100 dark:text-gray-200 hover:text-red-500">
+            Profile Page
+          </span>
+        </div>
       </div>
     </div>
   );
-}
-function setSession(_arg0: null) {
-  throw new Error("Function not implemented.");
 }

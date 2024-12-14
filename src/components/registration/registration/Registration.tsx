@@ -24,7 +24,10 @@ const schema = yup
       .required("Name is a required field"),
     email: yup
       .string()
-      .email("Invalid email format")
+      .matches(
+        /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+        "Invalid email format"
+      )
       .required("Email is a required field"),
     password: yup
       .string()
