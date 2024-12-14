@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { createAvatar } from "@dicebear/core";
 import { miniavs } from "@dicebear/collection";
-import profileSchema from "../validationSchema";
+import { profileSchema } from "../validations";
 
 export default function Profile() {
   const defaultAvatar = createAvatar(

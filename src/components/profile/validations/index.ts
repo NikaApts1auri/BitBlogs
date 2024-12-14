@@ -1,3 +1,4 @@
+// profileSchema.ts
 import * as yup from "yup";
 
 export const profileSchema = yup.object().shape({
@@ -31,5 +32,3 @@ export const profileSchema = yup.object().shape({
     .min(9, "ტელეფონის ნომერი ძალიან მოკლეა")
     .max(15, "ტელეფონის ნომერი ძალიან გრძელია"),
 });
-
-export default profileSchema;

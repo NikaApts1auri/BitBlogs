@@ -102,7 +102,7 @@ export function Registration() {
   };
 
   return (
-    <div className="flex w-full items-center justify-center h-screen dark:bg-[#030303] p-6">
+    <div className="flex w-[100vw] items-center justify-center h-screen dark:bg-[#030303] p-6">
       <div className="dark:bg-[#0c1016] text-white rounded-[1.5rem] border dark:border-white w-[40rem] p-12 shadow-lg">
         <h1 className="text-3xl text-[black] dark:text-[white] font-bold text-center mb-6">
           Sign Up to BitBlogs
