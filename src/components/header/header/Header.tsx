@@ -23,21 +23,17 @@ export default function Header() {
 
   const { user } = useAuthContext();
 
-  const [theme, setTheme] =
-    useState<string>("dark");
-
-  useEffect(() => {
-    const savedTheme =
-      localStorage.getItem("theme");
-    if (savedTheme) {
-      setTheme(savedTheme);
-    } else {
-      setTheme("light");
+  const [theme, setTheme] = useState<string>(
+    () => {
+      return (
+        localStorage.getItem("theme") || "light"
+      );
     }
-  }, []);
+  );
 
   useEffect(() => {
     localStorage.setItem("theme", theme);
+
     if (theme === "dark") {
       document.documentElement.classList.add(
         "dark"
@@ -233,7 +229,7 @@ export default function Header() {
                   strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  className="lucide lucide-moon absolute h-[2.5rem] w-[2.5rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100"
+                  className="as lucide lucide-moon absolute h-[2.5rem]  w-[2.5rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100"
                 >
                   <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
                 </svg>

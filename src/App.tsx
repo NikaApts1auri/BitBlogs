@@ -21,6 +21,7 @@ import { ThemeProvider } from "./themeProvider";
 import ProtectedRoute from "./guard/ProtectedRoute";
 import { PublicRoute } from "./guard/PublicRoute";
 import NotFound from "./components/404/notFound";
+import ProfileView from "./components/profile/view";
 
 function App() {
   const { handleSetUser } = useAuthContext();
@@ -129,6 +130,18 @@ function App() {
                       }
                     >
                       <AboutView />
+                    </Suspense>
+                  }
+                />
+                <Route
+                  path="profile"
+                  element={
+                    <Suspense
+                      fallback={
+                        <LoadingFallback />
+                      }
+                    >
+                      <ProfileView />
                     </Suspense>
                   }
                 />
